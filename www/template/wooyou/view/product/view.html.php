@@ -23,6 +23,9 @@ js::execute($product->js);
 ?>
 <?php $common->printPositionBar($category, $product);?>
 <div class='row'>
+  <div class='col-md-3 col-side'>
+    <side class='page-side'><?php $this->block->printRegion($layouts, 'product_view', 'side');?></side>
+  </div>
   <div class='col-md-9 col-main'>
     <div class='panel panel-body panel-product'>
       <div class='row'>
@@ -70,7 +73,12 @@ js::execute($product->js);
               if($product->amount)
               {
                   $attributeHtml .= "<li><span class='meta-name'>" . $lang->product->amount . "</span>";
-                  $attributeHtml .= "<span class='meta-value'>" . $product->amount . " <small>" . $product->unit . "</small></span></li>";
+                  $attributeHtml .= '<div class="input-group w-120px"> <span class="input-group-addon" id="downAmount">-</span> <input type="text" class="form-control" name="amount" data-stock="' . $product->amount . '" value="1"> <span class="input-group-addon" id="upAmount">+</span></div>';
+                  $attributeHtml .= '</li>';
+
+                  $attributeHtml .= "<li><span class='meta-name'>" . $lang->product->stock . "</span>";
+                  $attributeHtml .= "<span class='meta-value'>" . $product->amount . ' <small>' . $product->unit . '</small>' . " </span>";
+                  $attributeHtml .= '</li>';
               }
               if($product->brand)
               {
@@ -102,6 +110,9 @@ js::execute($product->js);
             <div class='btn-buy'>
             <?php echo html::a($product->mall, $lang->product->buyNow, "class='btn btn-lg btn-primary' target='_blank'");?>
             </div>
+            <?php else:?>
+            <?php echo html::a($product->mall, $lang->product->buyNow, "class='btn btn-lg btn-warning' target='_blank'");?>
+            <?php echo html::a($product->mall, '<i class="icon-shopping-cart"></i> ' . $lang->product->addCard, "class='btn btn-lg btn-danger' target='_blank'");?>
             <?php endif;?>
           </div>
         </div>
@@ -118,9 +129,6 @@ js::execute($product->js);
       <div id='commentBox'></div>
       <?php echo html::a('', '', "name='comment'");?>
     </div>
-  </div>
-  <div class='col-md-3 col-side'>
-    <side class='page-side'><?php $this->block->printRegion($layouts, 'product_view', 'side');?></side>
   </div>
 </div>
 <?php include TPL_ROOT . 'common/footer.html.php'; ?>
