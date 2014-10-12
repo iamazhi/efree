@@ -1,3 +1,4 @@
 /system/tmp
 /tags
 /system/config/my.php
+*.swp
