@@ -121,6 +121,10 @@ define('TABLE_WX_PUBLIC',      $config->db->prefix . 'wx_public');
 define('TABLE_WX_MESSAGE',     $config->db->prefix . 'wx_message');
 define('TABLE_WX_RESPONSE',    $config->db->prefix . 'wx_response');
 
+define('TABLE_CART',           $config->db->prefix . 'cart');
+define('TABLE_ORDER',          $config->db->prefix . 'order');
+define('TABLE_ORDER_DETAIL',   $config->db->prefix . 'detail');
+
 /* Include extension config files. */
 $extConfigFiles = glob($configRoot . 'ext' . DS . '*.php');
 if($extConfigFiles) foreach($extConfigFiles as $extConfigFile) include $extConfigFile;
