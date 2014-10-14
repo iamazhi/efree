@@ -23,4 +23,10 @@ class cart extends control
 
         $this->send(array('result' => 'fail', 'message' => "fail"));
     }
+
+    public function delete($cartID)
+    {
+        if($this->cart->delete($cartID)) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
 }

@@ -9,22 +9,41 @@ class cartModel extends model
             ->stripTags('content,desc', $this->config->allowedTags->admin)
             ->setDefault('price', 0)
             ->setDefault('number', 0)
+            ->setDefault('status', 'normal')
             ->setDefault('product', $productID)
             ->add('addedBy', $this->app->user->account)
             ->add('addedDate', $now)
             ->get();
 
-        $this->dao->replace(TABLE_CART)->data($cart)->autoCheck()->exec();
-        return $this->dao->lastInsertID();
+        $oldCart = $this->dao->select('*')->from(TABLE_CART)->where('product')->eq($cart->product)->andWhere('addedBy')->eq($this->app->user->account)->fetch();
+        if($oldCart){
+            $cart->number += $oldCart->number;
+            $this->dao->update(TABLE_CART)->data($cart)->where('id')->eq($oldCart->id)->exec();
+            return $oldCart->id;
+        }else{
+            $this->dao->insert(TABLE_CART)->data($cart)->autoCheck()->exec();
+            return $this->dao->lastInsertID();
+        }
     }
 
     public function getList($orderBy = 'id_desc', $pager = null)
     {
-        return $this->dao->select('t1.*, t2.name, t2.amount')->from(TABLE_CART)->alias('t1')
-            ->leftJoin(TABLE_PRODUCT)->alias('t2')->on('t1.product = t2.id')
-            ->where('t1.addedBy')->eq($this->app->user->account)
-            ->orderBy('t1.' . $orderBy)
+        $cartList = $this->dao->select('*')->from(TABLE_CART)
+            ->where('addedBy')->eq($this->app->user->account)
+            ->andWhere('status = "normal"')
+            ->orderBy($orderBy)
             ->page($pager)
             ->fetchAll('id');
+
+        if(!$cartList) return array();
+
+        foreach($cartList as $cart) $cart->productInfo = $this->loadModel('product')->getByID($cart->product);
+        return $cartList;
+    }
+
+    public function delete($cartID)
+    {
+        $this->dao->update(TABLE_CART)->set('status')->eq('delete')->where('id')->eq($cartID)->exec();
+        return !dao::isError();
     }
 }

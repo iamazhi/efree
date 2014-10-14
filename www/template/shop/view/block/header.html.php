@@ -26,7 +26,7 @@
   </div>
   <div id='headNav'>
     <div class='wrapper'>
-      <nav><?php echo commonModel::printTopBar();?></nav>
+      <nav><?php $this->loadModel('common')->printTopNav();?></nav>
     </div>
   </div>
 </header>

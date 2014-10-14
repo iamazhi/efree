@@ -1,16 +1,17 @@
 $(document).ready(function()
 {
-    $("input[name='amount']").change(function(){
-      var amount = $('input[name="amount"]').val();
-      var stock  = $('input[name="amount"]').data('stock');
-      if(amount > stock) $("input[name='amount']").val(1);
+    $("input[name='number']").change(function(){
+      var $number = $(this);
+      var value   = $number.val();
+      var amount  = $number.data('amount');
+      if(value > amount || !/^[0-9]*[1-9][0-9]*$/.test(value)) $number.val(1);
     });
 
     $('#downNumber, #upNumber').click(function(){
       var number = $('input[name="number"]').val();
-      var stock  = $('input[name="number"]').data('stock');
+      var amount = $('input[name="number"]').data('amount');
       if($(this).attr('id') == 'downNumber' && number > 1)   number--;
-      if($(this).attr('id') == 'upNumber' && number < stock) number++;
+      if($(this).attr('id') == 'upNumber' && number < amount) number++;
       $("input[name='number']").val(number);
     });
 

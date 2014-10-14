@@ -75,11 +75,13 @@ js::execute($product->js);
 
                 if($product->amount)
                 {
-                    $attributeHtml .= "<li><span class='meta-name'>" . $lang->product->amount . "</span>";
-                    $attributeHtml .= '<div class="input-group w-120px"> <span class="input-group-addon" id="downNumber">-</span> <input type="text" class="form-control" name="number" data-stock="' . $product->amount . '" value="1"> <span class="input-group-addon" id="upNumber">+</span></div>';
+                    $attributeHtml .= "<li><span class='meta-name'>" . $lang->product->number. "</span>";
+                    $attributeHtml .= '<div class="input-group w-120px"> <span class="input-group-addon" id="downNumber">-</span> ';
+                    $attributeHtml .= '<input type="text" class="form-control" name="number" data-amount="' . $product->amount . '" value="1">';
+                    $attributeHtml .= '<span class="input-group-addon" id="upNumber">+</span></div>';
                     $attributeHtml .= '</li>';
 
-                    $attributeHtml .= "<li><span class='meta-name'>" . $lang->product->stock . "</span>";
+                    $attributeHtml .= "<li><span class='meta-name'>" . $lang->product->amount . "</span>";
                     $attributeHtml .= "<span class='meta-value'>" . $product->amount . ' <small>' . $product->unit . '</small>' . " </span>";
                     $attributeHtml .= '</li>';
                 }

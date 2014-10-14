@@ -301,18 +301,17 @@ class commonModel extends model
      * @access public
      * @return void
      */
-    public static function printTopBar()
+    public static function printTopBar($cartList = array())
     {
         if(!commonModel::isAvailable('user')) return '';
 
         global $app;
         if($app->session->user->account != 'guest')
         {
-            printf('<span class="login-msg">' . $app->lang->welcome . '</span>', html::a(helper::createLink('user', 'control'), $app->session->user->realname));
+            printf('<span class="login-msg">' . $app->lang->welcome . '</span>', $app->session->user->realname);
+            echo html::a(helper::createLink('user', 'control'), $app->lang->dashboard);
             echo "<span id='msgBox' class='hiding'></span>";
-            echo html::a(helper::createLink('user', 'cart'),   $app->lang->cart);
-            echo html::a(helper::createLink('user', 'order'),  $app->lang->order);
-            echo html::a(helper::createLink('user', 'logout'), $app->lang->logout);
+            echo html::a(helper::createLink('user', 'logout'),  $app->lang->logout);
         }    
         else
         {

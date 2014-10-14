@@ -34,6 +34,7 @@ $themeRoot = $webRoot . "template/shop/theme/";
       js::import($jsRoot . 'chanzhi.js');
       js::import($jsRoot . 'jquery/treeview/min.js');
       js::import($jsRoot . 'my.js');
+      js::import($jsRoot . 'shop.js');
 
       css::import($webRoot . 'zui/css/min.css');
       css::import($themeRoot . 'common/style.css');
