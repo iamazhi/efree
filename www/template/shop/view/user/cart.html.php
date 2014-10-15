@@ -50,11 +50,15 @@
           <td colspan=6> 
             <div class='pull-left'>
               <div class='btn-group'>
-                <?php echo html::a("javascript:selectAll()",     $lang->selectAll, "class='btn'"); ?>
-                <?php echo html::a("javascript:selectReverse()", $lang->selectReverse, "class='btn'"); ?>
+                <?php echo html::a('javascript:void()', $lang->selectAll, "class='btn' id='selectAll'"); ?>
+                <?php echo html::a('javascript:void()', $lang->selectReverse, "class='btn' id='selectReverse'"); ?>
               </div>
             </div>
-            <div class='pull-right'>已选商品100件，共计(不含运费):￥1000 </div>
+            <div class='pull-right'>
+              已选商品 <strong class='text-warning' id='pageNumber'>0</strong> 件，
+              共计(不含运费):<?php echo $this->config->product->currency;?><strong class='text-warning' id='pagePrice'>0</strong>
+              <?php echo html::submitButton('结算', 'btn btn-danger btn-lg'); ?>
+            </div>
           </td>
         </tr>
       </tfoot>

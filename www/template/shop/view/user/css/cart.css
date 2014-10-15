@@ -1,3 +1,9 @@
 #cartList .media {background-repeat: no-repeat}
 .table th, .table td {vertical-align: middle;}
+#cartList tr td, #cartList tr th{border-left:none; border-right:none}
 .downNumber,.upNumber {cursor:pointer}
+
+.table tfoot tr td{padding:0}
+#pageNumber, #pagePrice {color: #f40;}
+#pagePrice {font-size: 22px}
+#submit {border-radius: 0px;}
