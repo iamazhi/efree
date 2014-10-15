@@ -3,7 +3,7 @@ $(document).ready(function()
     scope = "#cartList";
     summary();
 
-    $(scope + " tbody tr").click(choseItem);
+    autoCheck();
     $("input[name^='number']").change(changeNumber);
     $('.downNumber').click(downNumber);
     $('.upNumber').click(upNumber);
@@ -12,16 +12,31 @@ $(document).ready(function()
     $('#selectReverse').click(function(){ selectReverse(scope); });
 });
 
-function choseItem(){
-  return;
-  var $tr       = $(this);
-  var $checkbox = $tr.find('input:checkbox');
-  if($checkbox.prop('checked')) {
-    $checkbox.prop('checked', false);
-  }else{
-    $checkbox.prop('checked', true);
-  }
-  summary();
+function autoCheck()
+{
+    $('.table tr :checkbox').click(function(){clickInCheckbox = 1;});
+ 
+    $('.table tr').click(function()
+    {
+        if(document.activeElement.type != 'select-one' && document.activeElement.type != 'text')
+        {
+            if(typeof(clickInCheckbox) != 'undefined' && clickInCheckbox == 1)
+            {
+                clickInCheckbox = 0;
+            }
+            else
+            {
+                if($(this).find(':checkbox').prop('checked'))
+                {
+                    $(this).find(':checkbox').prop('checked', false);
+                }
+                else
+                {
+                    $(this).find(':checkbox').prop('checked', true);
+                }
+            }
+        }
+    });
 }
 
 function changeNumber(){
