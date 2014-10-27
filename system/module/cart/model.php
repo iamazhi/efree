@@ -26,11 +26,14 @@ class cartModel extends model
         }
     }
 
-    public function getList($orderBy = 'id_desc', $pager = null)
+    public function getList($cartIDList = array(), $orderBy = 'id_desc', $pager = null)
     {
         $cartList = $this->dao->select('*')->from(TABLE_CART)
             ->where('addedBy')->eq($this->app->user->account)
             ->andWhere('status = "normal"')
+            ->beginIF($cartIDList)
+            ->andWhere('id')->in($cartIDList)
+            ->fi()
             ->orderBy($orderBy)
             ->page($pager)
             ->fetchAll('id');

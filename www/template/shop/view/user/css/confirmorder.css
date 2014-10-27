@@ -1,0 +1,13 @@
+#consignees {margin: 0px; padding: 5px;}
+.consignee-box { position: relative; background: #fff; border: 1px solid #ccc; }
+.remove-action {position:absolute; right:0px; color:#aaa; top:-4px}
+
+.cell  {margin-bottom:15px;}
+.title {height: 30px; padding:5px;}
+.desc  {height: 100px; overflow:auto; padding:5px; border-bottom: 1px solid #ccc; border-top:1px solid #ccc}
+.mix   {height: 30px; padding:5px; color:#888; font-size:12px}
+
+.table tfoot tr td{padding:0}
+#pageNumber, #pagePrice {color: #f40;}
+#pagePrice {font-size: 22px}
+#submit {border-radius: 0px;}

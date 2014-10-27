@@ -2,6 +2,7 @@
 <div class='row'>
   <?php include './side.html.php';?>
   <div class='col-md-10'>
+    <form method='post' action='<?php echo $this->inlink('confirmOrder', 'from=cart');?>'>
     <table class="table table-bordered table-hover" id="cartList">
       <thead>
         <tr>
@@ -9,14 +10,14 @@
           <th>商品信息</th>
           <th>单价</th>
           <th>数量</th>
-          <th>金额</th>
+          <th>小计</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
       <?php foreach($cartList as $cart):?>
-      <?php $product = $cart->productInfo; ?>
-      <?php $price = $product->promotion ? $product->promotion : $product->price;?></td>
+      <?php $product = $cart->productInfo;?>
+      <?php $price   = $product->promotion ? $product->promotion : $product->price;?></td>
         <tr id=<?php echo "product" . $cart->product?>>
           <td><input type='checkbox' name='cartIDList[<?php echo $cart->id;?>]' value='<?php echo $cart->id;?>' /></td>
           <td>
@@ -28,12 +29,12 @@
           </td>
           <td>
              <small class='text-muted'><?php echo $this->config->product->currency;?></small>
-            <span class='price'><?php echo $price;?></span>
+             <span class='price'><?php echo $price;?><input name='priceList[<?php echo $cart->id;?>]' value='<?php echo $price;?>' type='hidden' /></span>
           </td>
           <td class='w-130px'>
             <div class="input-group"> 
               <span class="input-group-addon downNumber">-</span> 
-              <?php echo html::input("number[$cart->id]", $cart->number, "class='form-control' data-amount=$product->amount data-number=$cart->number data-price=$price data-product=$cart->product");?>
+              <?php echo html::input("numberList[$cart->id]", $cart->number, "class='form-control' data-amount=$product->amount data-number=$cart->number data-price=$price data-product=$cart->product");?>
               <span class="input-group-addon upNumber">+</span>
             </div>
           </td>
@@ -47,7 +48,7 @@
       </tbody>
       <tfoot>  
         <tr>
-          <td colspan=6> 
+          <td colspan=6>
             <div class='pull-left'>
               <div class='btn-group'>
                 <?php echo html::a('javascript:void()', $lang->selectAll, "class='btn' id='selectAll'"); ?>
@@ -57,12 +58,13 @@
             <div class='pull-right'>
               已选商品 <strong class='text-warning' id='pageNumber'>0</strong> 件，
               共计(不含运费):<?php echo $this->config->product->currency;?><strong class='text-warning' id='pagePrice'>0</strong>
-              <?php echo html::submitButton('结算', 'btn btn-danger btn-lg'); ?>
+              <?php echo html::submitButton('结算', 'btn btn-danger btn-lg') . html::hidden('confirmPrice', ''); ?>
             </div>
           </td>
         </tr>
       </tfoot>
     </table>
+    </form>
   </div>
 </div>
 <?php include TPL_ROOT . 'common/footer.html.php';?>

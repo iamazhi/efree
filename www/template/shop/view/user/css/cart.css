@@ -7,3 +7,6 @@
 #pageNumber, #pagePrice {color: #f40;}
 #pagePrice {font-size: 22px}
 #submit {border-radius: 0px;}
+
+.btn-group {padding: 10px}
+#selectAll, #selectReverse {border:none; border-radius:0; background:white; box-shadow:none; padding:0 10px 0 0px}

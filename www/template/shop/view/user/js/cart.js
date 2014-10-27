@@ -15,7 +15,7 @@ $(document).ready(function()
 function autoCheck()
 {
     $('.table tr :checkbox').click(function(){clickInCheckbox = 1;});
- 
+
     $('.table tr').click(function()
     {
         if(document.activeElement.type != 'select-one' && document.activeElement.type != 'text')
@@ -29,10 +29,12 @@ function autoCheck()
                 if($(this).find(':checkbox').prop('checked'))
                 {
                     $(this).find(':checkbox').prop('checked', false);
+                    summary();
                 }
                 else
                 {
                     $(this).find(':checkbox').prop('checked', true);
+                    summary();
                 }
             }
         }
@@ -58,6 +60,7 @@ function upNumber(){
 
   var product = $number.data('product');
   updateTotal(product);
+  return false;
 }
 
 function downNumber(){
@@ -68,6 +71,7 @@ function downNumber(){
 
   var product = $number.data('product');
   updateTotal(product);
+  return false;
 }
 
 function updateTotal(product){
@@ -107,6 +111,7 @@ function summary()
   pagePrice = pagePrice.toFixed(2);
   $("#pageNumber").text(pageNumber);
   $("#pagePrice").text(pagePrice);
+  $("#confirmPrice").val(pagePrice);
 
   setButtonStatus(pageNumber);
 };
