@@ -1,23 +1,25 @@
 <?php include TPL_ROOT . 'common/header.html.php';?>
 <div class='row'>
   <?php include './side.html.php';?>
-  <form method='post' action='<?php echo $this->createLink('order', 'create', 'from=cart');?>'>
+  <form method='post' action='<?php echo $this->createLink('order', 'create', 'from=cart');?>' id='ajaxForm'>
     <div class='col-md-10'>
 
       <div class='panel'>
         <div class='panel-heading'><strong>确认收货地址</strong></div>
         <?php $consignees = $this->loadModel('consignee')->getList(); ?>
         <div class='row' id='consignees'>
-          <?php foreach($consignees as $consignee):?>
+          <?php $confirmConsignee = 0; foreach($consignees as $consignee):?>
           <div class="col-md-3 cell">
-            <div class="consignee-box">
-              <a class="remove-action" href="/admin.php/Site/delete/67"><i class="icon-remove"></i></a>
+            <div class="consignee-box <?php if($consignee->default) echo 'cur-box';?>" id='<?php echo 'consignee' . $consignee->id;?>' data-consigneeid="<?php echo $consignee->id; ?>">
+              <a class="remove-action" data-consigneeid="<?php echo $consignee->id; ?>" href="<?php echo $this->createLink('consignee', 'delete', "id=$consignee->id")?>"><i class="icon-remove"></i></a>
               <div class="title"><?php echo $consignee->name . ' ' . $consignee->mobile . ' (收)'; ?></div>
               <div class="desc"><?php echo $consignee->address . ' (' . $consignee->zipcode . ')'; ?></div>
               <div class="mix">
-                <i class="pull-left edit-action icon-edit"></i>
+                <i class="pull-left icon-edit edit-action"></i>
                 <?php if($consignee->default) echo " 默认地址"; ?>
-                <?php if($consignee->default):?><i class="pull-right text-success icon-ok text-lg"></i><?php endif;?>
+                <?php if($consignee->default): $chosenConsignee = $consignee->id;?>
+                <i class="pull-right icon-ok text-lg"></i>
+                <?php endif;?>
               </div>
             </div>
           </div>
@@ -65,7 +67,8 @@
               <td colspan=6> 
                 <div class='pull-right'>
                   实付款:<?php echo $this->config->product->currency;?><strong class='text-warning' id='pagePrice'><?php echo $confirmPrice; ?></strong>
-                  <?php echo html::submitButton('提交订单', 'btn btn-danger btn-lg') . html::hidden('confirmPrice', 'a'); ?>
+                  <?php echo html::submitButton('提交订单', 'btn btn-danger btn-lg') . html::hidden('confirmPrice', $confirmPrice); ?>
+                  <?php echo html::hidden('confirmConsignee', $confirmConsignee); ?>
                 </div>
               </td>
             </tr>

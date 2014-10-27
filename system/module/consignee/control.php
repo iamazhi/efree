@@ -8,4 +8,9 @@
 */
 class consignee extends control
 {
+    public function delete($consigneeID)
+    {
+        if($this->consignee->delete($consigneeID)) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
 }

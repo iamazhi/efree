@@ -58,7 +58,7 @@ CREATE TABLE `ef_block` (
   `title` varchar(60) NOT NULL,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `ef_block`
@@ -100,15 +100,15 @@ CREATE TABLE `ef_book` (
 DROP TABLE IF EXISTS `ef_cart`;
 CREATE TABLE `ef_cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product` int(11) DEFAULT NULL COMMENT '商品ID',
-  `price` decimal(11,0) DEFAULT NULL COMMENT '商品单价',
-  `number` int(11) DEFAULT NULL COMMENT '商品数量',
-  `addedBy` varchar(60) COLLATE utf8_bin DEFAULT NULL COMMENT '创建者',
-  `addedDate` datetime DEFAULT NULL COMMENT '创建时间',
+  `product` int(11) DEFAULT NULL,
+  `price` decimal(11,0) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `addedBy` varchar(60) COLLATE utf8_bin DEFAULT NULL,
+  `addedDate` datetime DEFAULT NULL,
   `status` varchar(255) COLLATE utf8_bin DEFAULT 'normal',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique` (`product`,`price`,`addedBy`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=540 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='购物车';
+  UNIQUE KEY `unique` (`product`,`price`,`addedBy`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `ef_cart`
@@ -183,17 +183,17 @@ COMMIT;
 DROP TABLE IF EXISTS `ef_consignee`;
 CREATE TABLE `ef_consignee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `account` char(30) COLLATE utf8_bin DEFAULT '-1' COMMENT '会员ID',
-  `name` varchar(32) COLLATE utf8_bin DEFAULT '' COMMENT '姓名',
-  `address` varchar(512) COLLATE utf8_bin DEFAULT '' COMMENT '详细地址',
-  `mobile` varchar(32) COLLATE utf8_bin DEFAULT '' COMMENT '手机号',
-  `telephone` varchar(32) COLLATE utf8_bin DEFAULT '' COMMENT '座机号',
-  `zipcode` varchar(12) COLLATE utf8_bin DEFAULT '' COMMENT '邮政编码',
-  `addedDate` datetime DEFAULT NULL COMMENT '创建时间',
-  `default` enum('0','1') COLLATE utf8_bin DEFAULT '0' COMMENT '是否默认地址',
-  `deleted` enum('0','1') COLLATE utf8_bin DEFAULT '0' COMMENT '是否被删除',
+  `account` char(30) COLLATE utf8_bin DEFAULT '-1',
+  `name` varchar(32) COLLATE utf8_bin DEFAULT '',
+  `address` varchar(512) COLLATE utf8_bin DEFAULT '',
+  `mobile` varchar(32) COLLATE utf8_bin DEFAULT '',
+  `telephone` varchar(32) COLLATE utf8_bin DEFAULT '',
+  `zipcode` varchar(12) COLLATE utf8_bin DEFAULT '',
+  `addedDate` datetime DEFAULT NULL,
+  `default` enum('0','1') COLLATE utf8_bin DEFAULT '0',
+  `deleted` enum('0','1') COLLATE utf8_bin DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='收货地址信息表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `ef_consignee`
