@@ -33,6 +33,6 @@ function choseConsignee(e, $cur)
   $cur.addClass('cur-box');
   $cur.find('.mix').append('<i class="pull-right icon-ok text-lg"></i>');
 
-  var $confirmConsignee = $cur.data('consigneeid');
-  $('#confirmConsignee').val($confirmConsignee);
+  var $consigneeID = $cur.data('consigneeid');
+  $('#consigneeID').val($consigneeID);
 }

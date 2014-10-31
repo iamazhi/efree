@@ -13,8 +13,17 @@ class order extends control
         *
         * @return 
      */
-    public function add()
+    public function create()
     {
-        $this->locate(helper::createLink('user', 'order'));
+        if(!empty($_POST))
+        {
+            $this->order->create();
+            $this->locate(helper::createLink('user', 'order'));
+        }
+    }
+
+    public function pay($orderID)
+    {
+        echo $orderID;
     }
 }

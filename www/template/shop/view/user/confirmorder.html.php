@@ -1,14 +1,14 @@
 <?php include TPL_ROOT . 'common/header.html.php';?>
 <div class='row'>
   <?php include './side.html.php';?>
-  <form method='post' action='<?php echo $this->createLink('order', 'create', 'from=cart');?>' id='ajaxForm'>
+  <form method='post' action='<?php echo $this->createLink('order', 'create', 'from=cart');?>'>
     <div class='col-md-10'>
 
       <div class='panel'>
         <div class='panel-heading'><strong>确认收货地址</strong></div>
         <?php $consignees = $this->loadModel('consignee')->getList(); ?>
         <div class='row' id='consignees'>
-          <?php $confirmConsignee = 0; foreach($consignees as $consignee):?>
+          <?php $consigneeID = 0; foreach($consignees as $consignee):?>
           <div class="col-md-3 cell">
             <div class="consignee-box <?php if($consignee->default) echo 'cur-box';?>" id='<?php echo 'consignee' . $consignee->id;?>' data-consigneeid="<?php echo $consignee->id; ?>">
               <a class="remove-action" data-consigneeid="<?php echo $consignee->id; ?>" href="<?php echo $this->createLink('consignee', 'delete', "id=$consignee->id")?>"><i class="icon-remove"></i></a>
@@ -17,7 +17,7 @@
               <div class="mix">
                 <i class="pull-left icon-edit edit-action"></i>
                 <?php if($consignee->default) echo " 默认地址"; ?>
-                <?php if($consignee->default): $chosenConsignee = $consignee->id;?>
+                <?php if($consignee->default): $consigneeID = $consignee->id;?>
                 <i class="pull-right icon-ok text-lg"></i>
                 <?php endif;?>
               </div>
@@ -41,7 +41,7 @@
           <tbody>
           <?php foreach($cartList as $cart):?>
           <?php $product = $cart->productInfo; ?>
-          <?php $price   = $product->promotion ? $product->promotion : $product->price;?></td>
+            <input type='hidden' name='cartIDList[<?php echo $cart->id;?>]' value='<?php echo $numberList[$cart->id];?>' /></td>
             <tr id=<?php echo "product" . $cart->product?>>
               <td>
                 <?php if(!empty($product->image)): ?>
@@ -52,23 +52,23 @@
               </td>
               <td>
                 <small class='text-muted'><?php echo $this->config->product->currency;?></small>
-                <span class='price'><?php echo $price;?></span>
+                <span class='price'><?php echo $product->finalPrice;?></span>
               </td>
               <td class='w-100px'><span class="number"><span class='number'><?php echo $numberList[$cart->id];?></span></td>
               <td class='w-100px'>
                  <small class='text-muted'><?php echo $this->config->product->currency;?></small>
-                 <span class='total text-warning'><?php echo $price * $cart->number;?></span>
+                 <span class='total text-warning'><?php echo sprintf("%.2f", $product->finalPrice * $numberList[$cart->id]);?></span>
               </td>
             </tr>
           <?php endforeach;?>
           </tbody>
-          <tfoot>  
+          <tfoot>
             <tr>
               <td colspan=6> 
                 <div class='pull-right'>
                   实付款:<?php echo $this->config->product->currency;?><strong class='text-warning' id='pagePrice'><?php echo $confirmPrice; ?></strong>
-                  <?php echo html::submitButton('提交订单', 'btn btn-danger btn-lg') . html::hidden('confirmPrice', $confirmPrice); ?>
-                  <?php echo html::hidden('confirmConsignee', $confirmConsignee); ?>
+                  <?php echo html::submitButton('提交订单', 'btn btn-danger btn-lg') . html::hidden('cost', $confirmPrice); ?>
+                  <?php echo html::hidden('consigneeID', $consigneeID); ?>
                 </div>
               </td>
             </tr>

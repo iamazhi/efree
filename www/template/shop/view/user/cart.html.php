@@ -17,7 +17,6 @@
       <tbody>
       <?php foreach($cartList as $cart):?>
       <?php $product = $cart->productInfo;?>
-      <?php $price   = $product->promotion ? $product->promotion : $product->price;?></td>
         <tr id=<?php echo "product" . $cart->product?>>
           <td><input type='checkbox' name='cartIDList[<?php echo $cart->id;?>]' value='<?php echo $cart->id;?>' /></td>
           <td>
@@ -29,18 +28,18 @@
           </td>
           <td>
              <small class='text-muted'><?php echo $this->config->product->currency;?></small>
-             <span class='price'><?php echo $price;?><input name='priceList[<?php echo $cart->id;?>]' value='<?php echo $price;?>' type='hidden' /></span>
+             <span class='price'><?php echo $product->finalPrice;?></span>
           </td>
           <td class='w-130px'>
             <div class="input-group"> 
               <span class="input-group-addon downNumber">-</span> 
-              <?php echo html::input("numberList[$cart->id]", $cart->number, "class='form-control' data-amount=$product->amount data-number=$cart->number data-price=$price data-product=$cart->product");?>
+              <?php echo html::input("numberList[$cart->id]", $cart->number, "class='form-control' data-amount=$product->amount data-number=$cart->number data-price=$product->finalPrice data-product=$cart->product");?>
               <span class="input-group-addon upNumber">+</span>
             </div>
           </td>
           <td class='w-100px'>
              <small class='text-muted'><?php echo $this->config->product->currency;?></small>
-             <span class='total text-warning'><?php echo $price * $cart->number;?></span>
+             <span class='total text-warning'><?php echo sprintf("%.2f", $product->finalPrice * $cart->number);?></span>
            </td>
           <td class='action'><?php echo html::a($this->createLink('cart', 'delete', "cartID=$cart->id"), $lang->delete, "class='deleter'"); ?> </td>
         </tr>
