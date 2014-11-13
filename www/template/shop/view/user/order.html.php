@@ -15,7 +15,7 @@
             <td>
               <?php if(!empty($product->image)): ?>
               <?php $title = $product->image->primary->title ? $product->image->primary->title : $cart->name;?>
-              <span class='media' style='background-image: url(<?php echo $product->image->primary->smallURL; ?>); background-iamge:none\0;'><?php echo html::image($product->image->primary->smallURL, "title='{$title}' alt='{$cart->name}'"); ?></span>
+              <span class='media' style='background-image: url(<?php echo $product->image->primary->smallURL; ?>);'><?php echo html::image($product->image->primary->smallURL, "title='{$title}' alt='{$cart->name}'"); ?></span>
               <?php endif;?>
               <span><?php echo html::a(helper::createLink('product', 'view', "id=$cart->product"), $product->name, 'target=_blank');?></span>
             </td>
@@ -27,7 +27,7 @@
             <?php if($index == 1):?>
             <td class='w-100px total' <?php if($count > 1) echo "rowspan='$count'"; ?>>
               <small class='text-muted'><?php echo $this->config->product->currency;?></small>
-              <span class='total text-warning'><?php echo $order->cost;?></span>
+             <span class='total text-warning'><?php echo $order->cost;?></span>
             </td>
             <td class='w-120px actions' <?php if($count > 1) echo "rowspan='$count'"; ?>>
               <?php if($order->status == 'unpaid') echo html::a($this->createLink('order', 'pay', "orderID=$order->id"), "付款", "class='btn btn-warning'");?>
