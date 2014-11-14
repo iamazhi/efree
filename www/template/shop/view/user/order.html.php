@@ -30,7 +30,7 @@
              <span class='total text-warning'><?php echo $order->cost;?></span>
             </td>
             <td class='w-120px actions' <?php if($count > 1) echo "rowspan='$count'"; ?>>
-              <?php if($order->status == 'unpaid') echo html::a($this->createLink('order', 'pay', "orderID=$order->id"), "付款", "class='btn btn-warning'");?>
+              <?php if($order->status == 'unpaid') echo html::a($this->createLink('pay', 'go', "orderID=$order->id"), "付款", "class='btn btn-warning'");?>
             </td>
             <?php endif;?>
           </tr>

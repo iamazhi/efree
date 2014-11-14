@@ -21,9 +21,4 @@ class order extends control
             $this->locate(helper::createLink('user', 'order'));
         }
     }
-
-    public function pay($orderID)
-    {
-        echo $orderID;
-    }
 }

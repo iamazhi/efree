@@ -1,6 +1,11 @@
 <?php
 class orderModel extends model
 {
+    public function getByID($orderID)
+    {
+        return $this->dao->select('*')->from(TABLE_ORDER)->where('id')->eq($orderID)->fetch();
+    }
+
     public function getList($orderIDList = array(), $orderBy = 'id_desc', $pager = null)
     {
         $orders = $this->dao->select('*')->from(TABLE_ORDER)
